@@ -2,15 +2,13 @@
 
 // FS locations
 #define FRAG_COLOR	0
-in block
-{
-	vec4 Position;
-	vec3 Color;
-} FS_In;
+
+in vec3 color;
 
 layout(location = FRAG_COLOR, index = 0) out vec3 Color;
 
 void main()
 {
-	Color = FS_In.Color;
+	Color = color;
+	//Color = vec3(1.0f, 1.0f, 1.0f);
 }

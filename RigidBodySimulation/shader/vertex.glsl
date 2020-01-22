@@ -7,20 +7,19 @@
 
 layout(location = POSITION) in vec4 Pin;
 
-out block
-{
-	vec4 Position;
-	vec3 Color;
-} VS_Out;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+out vec3 colorToFrag;
 
 void main()
 {
-	gl_Position = vec4(Pin.xy/20.0f, 0.5f, 1.0f);
-	VS_Out.Position = gl_Position;
+	gl_Position = projection * view * model * vec4(Pin.xy/20.0f, 0.5f, 1.0f);
 	float div = Pin.z > 0.05 ? Pin.z : 1.0f;
-	VS_Out.Color = vec3(0.1f/div, 0.1f/div, 0.1f/div);
+	colorToFrag = vec3(0.1f/div, 0.1f/div, 0.1f/div);
 	if( Pin.w > 100.0f )
 	{
-		VS_Out.Color = vec3(1.0f, 0.0f, 0.0f);
+		colorToFrag = vec3(1.0f, 0.0f, 0.0f);
 	}
 }
